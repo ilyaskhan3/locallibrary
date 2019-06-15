@@ -11,7 +11,9 @@
     <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
     <li><strong>Authors:</strong> {{ num_authors }}</li>
   </ul>
-
+<p>
+  You have visited this page {{ num_visits }} {% if num_visits == 1 %} time{% else %} times{% endif %}.
+</p>
 <table class="table table-sm">
   <thead>
     <tr>
@@ -58,7 +60,7 @@
     <tr>
       <td class="table-info">{{ forloop.counter }} </td>
       <td>{{ k|capfirst }}:</td>
-      <td> 
+      <td>
         <em>{{v.0}} book(s):</em><br>
         {% for i in v.2 %}
           {{i}}<br>

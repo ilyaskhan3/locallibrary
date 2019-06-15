@@ -10,18 +10,25 @@ def index(request):
     # Generate counts of some of the main objects
     num_books = Book.objects.all().count()
     num_instances = BookInstance.objects.all().count()
-    
+
     # Available books (status = 'a')
     num_instances_available = BookInstance.objects.filter(status__exact='a').count()
-    
-    # The 'all()' is implied by default.    
+
+    # The 'all()' is implied by default.
     num_authors = Author.objects.count()
+
+    # Session data
+    # Number of visits to this view, as counted
+    # in the session variable
+    num_visits = request.session.get('num_visits', 0)
+    request.session['num_visits'] = num_visits + 1
+
 
     # by IK # of books that contain a certain keyword
     # identify key words
-    # for each word in key_words as key, 
+    # for each word in key_words as key,
     #   filter the Books that contain in thier summary or title and count them
-    #   return the title of the books from above   
+    #   return the title of the books from above
     #   from Genre filter the related books that contain the word in summary or title and count unique
 
 
@@ -36,7 +43,7 @@ def index(request):
             Genre.objects.all().filter(Q(book__summary__icontains=key_words[word]) | Q(book__title__icontains=key_words[word])).distinct().count(),
             Book.objects.all().filter(Q(summary__icontains=key_words[word]) | Q(title__icontains=key_words[word])),
     	    ]
-    
+
     context = {
         'num_books': num_books,
         'num_instances': num_instances,
@@ -45,6 +52,7 @@ def index(request):
         'books': Book.objects.all(),
         'key_words': key_words,
         'key_word_count': key_word_count,
+        'num_visits': num_visits,
     }
 
     # Render the HTML template index.html with the data in the context variable
@@ -57,10 +65,10 @@ class BookListView(generic.ListView):
     paginate_by = 2
 ### View for Book Detail page
 class BookDetailView(generic.DetailView):
-    model = Book    
+    model = Book
 #########View for Author List page
 class AuthorListView(generic.ListView):
     model=Author
 ### View for Book Detail page
 class AuthorDetailView(generic.DetailView):
-    model = Author    
+    model = Author

@@ -11,6 +11,7 @@ class Genre(models.Model):
         max_length=200,
         help_text="Enter a book genre (e.g. Science Fiction, French Poetry etc.)"
         )
+    sample = models.BooleanField(default=False)
 
     def __str__(self):
         """String for representing the Model object (in Admin site etc.)"""
