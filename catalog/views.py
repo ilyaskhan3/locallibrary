@@ -5,7 +5,7 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import permission_required
 
-@permission_required('catalog.can_mark_returned')
+
 
 # Create your views here.
 from catalog.models import Book, Author, BookInstance, Genre
@@ -66,6 +66,7 @@ def index(request):
 
 ## view for a user's loaned books
 ## visible to the user only
+
 class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
     """Generic class-based view listing books on loan to current user."""
     model = BookInstance

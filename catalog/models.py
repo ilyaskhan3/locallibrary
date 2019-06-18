@@ -1,7 +1,8 @@
 from django.db import models
-
-# import User model
-from django.contrib.auth.models import User
+from django.urls import reverse
+from datetime import date
+import uuid  # Required for unique book instances
+from django.contrib.auth.models import User  # Required to assign User as a borrower
 
 class Genre(models.Model):
     """Model representing a book genre (e.g. Science Fiction, Non Fiction)."""
@@ -56,10 +57,6 @@ class Book(models.Model):
         return self.title
 
 
-import uuid  # Required for unique book instances
-from datetime import date
-
-from django.contrib.auth.models import User  # Required to assign User as a borrower
 
 
 class BookInstance(models.Model):
