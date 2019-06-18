@@ -4,7 +4,7 @@ from django.contrib import admin
 from catalog.models import Author, Genre, Book, BookInstance, Language
 ##previous - this displays the model list
 ##in columnar style
-## 
+##
 #admin.site.register(Author)
 admin.site.register(Genre)
 #admin.site.register(Book)
@@ -31,7 +31,7 @@ class AuthorAdmin(admin.ModelAdmin):
 	list_filter = ('date_of_birth',)
 	fields = ('first_name', 'last_name', ('date_of_birth', 'date_of_death'))
 	inlines = [BookInline]
-admin.site.register(Author, AuthorAdmin)		
+admin.site.register(Author, AuthorAdmin)
 # Book
 # we'll use @admin.register(Book)
 # this does the same thing as admin.site.register(Book, BookAdmin)
@@ -59,4 +59,3 @@ class BookInstanceAdmin(admin.ModelAdmin):
             'fields': ('status', 'due_back')
         }),
     )
-	

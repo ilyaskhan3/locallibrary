@@ -1,9 +1,7 @@
 from django.db import models
 
-# Create your models here.
-
-from django.urls import reverse  # To generate URLS by reversing URL patterns
-
+# import User model
+from django.contrib.auth.models import User
 
 class Genre(models.Model):
     """Model representing a book genre (e.g. Science Fiction, Non Fiction)."""
@@ -73,6 +71,9 @@ class BookInstance(models.Model):
     due_back = models.DateField(null=True, blank=True)
     borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
+    # add a property that we can call from our
+    # templates to tell if a particular book instance
+    # is overdue
     @property
     def is_overdue(self):
         if self.due_back and date.today() > self.due_back:
